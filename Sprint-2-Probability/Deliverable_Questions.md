@@ -8,11 +8,13 @@ This problem set is a work of fan fiction. Hermione Granger and related characte
 
 ## Honor Code
 
-Edit this section to include a statement of the Honor Code.
+Honor Code: “On my honor, I have neither given, nor received, nor witnessed any unauthorized assistance on this work, and I have read/ viewed the assigned material in its entirety.”
+Signed,
+Gonzalo Ruiz
 
 ## List Your Team Members
 
-Edit this section to include a list of everyone on your team.
+TJ Donahue, Jay Jiranek
 
 ## Instructions
 
@@ -41,6 +43,11 @@ Under these assumptions, what is the probability that Hermione really is a witch
 
 Tip: use Bayes' Rule,
 
+P(B) = (0.75 * 0.03) + (0.99 * 0.25) = 0.0225 + 0.2475 = 0.27
+
+         0.75 * 0.03
+P(A|B) = ------------  =  0.083
+            0.27
 ```
              P(A) * P(B | A)
 P(A | B) =  -----------------
@@ -74,6 +81,11 @@ Hints:
 
 This problem is based on a classic called the Coupon Collector's Problem. It's related to the geometric distribution, which we'll talk about in the next sprint.
 
+
+E[x] = 1 + 30/29 + 30/28 + 30/27 + ... + 30/2 + 30/1
+     = 118.85 which rounded would be 119 tries to get every different card
+     
+
 ### Hat Problem
 
 Hermione and Harry made it to Hogwarts!
@@ -92,6 +104,7 @@ If 10% of new Hogwarts students are evil, what is the probability that a randoml
 
 Tip: the value you want is `P(Evil | Slytherin)`.
 
+P(E|S) = 0.1 * 0.2 = 0.02
 
 ### Dumblevator
 
@@ -104,7 +117,6 @@ The school has fifteen floors. The Dumblevator continually moves between the fir
 ... 3, 2, 1, and so forth. Any time spent stopped at a floor is negligible compared to the time moving between floors.
 
 Hermione's last class ends at 5 PM on the thirteenth floor and she wants to go down to the first floor to reach the Great Hall for dinner. What is the probability that the Dumblevator is moving **down** when it arrives at the thirteenth floor for the first time after Hermione leaves her class?
-
 Tips:
 
 - This problem is based on one by Don Knuth, author of *The Art of Computer Programming*, which is famous for being one of the first comprehensive computer science texts and having a number of creative problems.
@@ -113,6 +125,7 @@ Tips:
 
 - Try reasoning about a smaller number of floors and drawing a picture.
 
+When Hermione is waiting for the elevator at the 13th floor, there are only 2 ways in which the elevator can approach level 13. 1 is by coming down from level 14th after dropping someone off, or 2 by coming up from level 13. At that time of the day, in a school of young students, I understand that most classes if not all, finish at 5pm. So my reasoning drives me to believe that the elevator would be coming up because most of the students would go to the elevator at the same time but due to the movement of the elevator and how it goes from 1 to 15 and then 15 to 1, I believe Hermionie would have to wait for the elevator to go to the 15th floor before she is able to get on it to go down.
 
 ### Urn While You Learn
 
@@ -122,6 +135,12 @@ There's an urn on the fourth floor with a strange property: every time Hermione 
 
 Suppose the urn contains 10 black balls and 5 red balls. If Hermione draws two balls, what is the probability that the second ball is red?
 
+P(B) = Black ball = 10/15
+P(R) = Red ball = 5/15
+
+P(B|R) = 10/15 * 5/14 = 0.24
+P(R|R) = 5/15 * 4/14 = 0.095
+
 ### Pólya's Urn
 
 Suppose an urn contains 9 black balls and 6 red balls. On each trial, Hermione picks a ball at random from the urn, returns it to the urn, and adds in one more ball of the same color.
@@ -129,6 +148,14 @@ Suppose an urn contains 9 black balls and 6 red balls. On each trial, Hermione p
 Suppose she carries out this procedure two times. What are the expected numbers of red and black balls in the urn?
 
 Tip: draw a tree of possible outcomes.
+
+P(B) = Black ball = 9/15 = 0.6
+P(R) = Red ball = 6/15 = 0.4
+
+P(B|B) = 9/15 * 10/16 = 0.375
+P(B|R) = 9/15 * 6/16 = 0.225
+P(R|B) = 6/15 * 9/16 = 0.225
+P(R|R) = 6/15 * 7/16 = 0.175
 
 ### Arithmancy
 
@@ -152,6 +179,12 @@ E[X] = -------
 Hint: Each of the `n` values is equally likely to be observed.
 
 Hint-hint: There's going to be a summation. You can look up the result if you don’t remember it.
+
+E[X] = E(kX+(a−k))
+     = k * E[x]+(a-k)
+     = k ((N + 1) / 2) + (a-k)
+     = k/2 * ((b−a+k) / (k+1)) + a - k
+     = (a + b) / 2
 
 
 ### Birthday Attack
@@ -177,3 +210,9 @@ P(Both are born on two different days) = (365 / 365) * (364 / 365)
 Hermoine's birthday can be on any day, but Victoria's must occur randomly on one of the other 364 days.
 
 What if there are three students? How about more?
+
+P(x) = (365/365) * (364/365) *  .... * (326/365) * (325/365)
+Depending on how many students you are taking into consideration for this event, to find the last probability you will use, you would proceed to subtract the number of students from 365 (total number of days in a year). After, multiply all the probabilities that go from 365 until the number you got from subtracting #of students from 365.
+
+In the case of three students it would be:
+    P(x) = (365/365) * (364/365) * (363/365) = 0.9918
