@@ -1,5 +1,16 @@
 # Sprint 3 &ndash; Deliverables
 
+## Honor Code
+
+“On my honor, I have not given, nor received, nor witnessed any unauthorized assistance on this work."
+
+## List Your Team Members
+
+TJ Donahue, Jay Jiranek
+
+## Issue uploading the code
+
+Every time I tried to upload the code as a program my internet would crash so I decided to put the code straight on this file. I apologize for the inconvenience.
 
 ## The Newton-Pepys Problem
 
@@ -11,8 +22,13 @@ corresponded with Isaac Newton regarding a wager:
 >Which of the following three propositions has the greatest chance of success?
 >
 >- Six fair dice are tossed independently and at least one six appears.
+1-(5/6)^6 = 0.6651
+
 >- Twelve fair dice are tossed independently and at least two sixes appear.
+1 - ((5/6)^12 + (1/6)*(5/6)^11) = 0.61866
+
 >- Eighteen fair dice are tossed independently and at least three sixes appear.
+1 - ((5/6)^18 + (1/6)*(5/6)^17 + (1/6)^2 * (5/6)^16) = 0.59735
 
 What is the answer to Pepys' question? Calculate your answer exactly using a discrete probability distribution, not a simulation model.
 
@@ -23,6 +39,10 @@ Tip: notice that the problem is phrased as *at least* **not** *exactly*.
 I have an urn that contains 100 balls. I know that some are black and some are red, but I don’t the numbers of each. Suppose I draw from the urn with replacement (putting each ball back in the urn, so that the number of balls remains the same) and write down the number of draws needed to get the first red ball. I then repeat this process several times and then use all of my results to calculate the expected number of draws needed to get the first red ball.
 
 My experiment shows that the expected number of draws to get one red ball is 20. What are reasonable estimates for the number of black and red balls in the urn?
+
+E[x] = 20 = 1/20 = 0.05 = 5%
+
+Since there are 100 balls in the Urn and there is replacement after taking a ball out, my estimate is that there are 5-10 red balls and 90-95 black balls since there is replacement and you could be picking the same ball twice in a row. But from the probability I would say 5 red balls and 95 black balls.
 
 ## Dragon Dice
 
@@ -35,6 +55,13 @@ One of their games is called Dragon's Dice. It's a simple carnival game, also kn
 Hermione picks a number 1-6 and rolls three fair dice. If her number comes up *k* = 1, 2, or 3 times, she wins *k* galleons. If it does not appear on any of the dice, she loses one galleon.
 
 What is Hermione's expected outcome from playing Dragon's Dice? Solve this problem analytically.
+
+P(0) = (3:0) * (1/6)^0 * (5/6)^3 = 0.5787
+P(1) = (3:1) * (1/6)^1 * (5/6)^2 = 0.3472
+P(2) = (3:2) * (1/6)^2 * (5/6)^1 = 0.0695
+P(3) = (3:3) * (1/6)^3 * (5/6)^0 = 0.0046
+
+((0 * 0.5787) + (1 * 0.3472) + (2 * 0.0695) + (3 * 0.0046)) / (0.5787 + 0.3472 + 0.0695 + 0.0046) = 0.5
 
 
 ## *Les Poissons*! *Les Poissons*! How I Love *les Poissons*!
@@ -51,6 +78,50 @@ to show the Poisson distribution is a good approximation for the binomial under 
 - On the same plot, show the Poisson pmf with *λ* = 25. You should see that the two distributions are very similar.
 
 I recommend using two line plots in two different styles for the two distributions.
+
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
+import math
+
+from random import randint
+
+def poisson(x, len):   
+    output = []
+    for i in range(1, x):
+        temp1 = (((math.e) ** (-len)) * (len ** i))
+        temp2 = temp1 / float(math.factorial(i))
+        output.append(temp2)
+    return output
+
+def simulate():
+    n = 1000
+    heads = 0
+    for i in range(n):
+        temp = randint(1, 40)
+        if temp == 1:
+            heads += 1
+    return heads
+
+def main():
+    n_iter = 1000 
+    fraction_h_list = [0] * 1000
+    for i in range(num_i):
+        heads = simulate() 
+        fraction_h_list[heads] = fraction_h_list[heads] + 1
+    nList = [x / 1000 for x in fraction_h_list]
+    poisson_list = poisson(50, 25)
+    plt.figure()
+    plt.plot(nList)
+    plt.plot(poisson_list)
+    plt.xlim(0, 50)
+    plt.title('Probability of Heads Line Plot')
+    plt.ylabel('Percentage of Success')
+    plt.xlabel('Number of Trials')
+    plt.savefig('Poisson Line Plot.pdf', bbox_inches='tight')
+
+if __name__ == '__main__':
+    main()
 
 
 ## The Ticket Problem
@@ -73,6 +144,53 @@ Tips:
 - As in the previous problem, use a `simulate` method to simulate one trial and return the result.
 
 - Because the seats could be renumbered, you can assume, without loss of generality, that the first passenger was assigned in seat 1, the second passenger in seat 2, and so forth. This simplifies the simulation because you don't need to generate a complete set of seat assignments.
+
+from random import randint
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
+
+def simulate():
+  result = randint(1, 100)
+  return result
+
+def main():  
+  travelers = 100
+  all_seats = []
+  next_seat = 0
+
+  result = simulate()
+  if result == 100:
+    return 0
+  else: 
+    all_seats.append(result)
+
+  for i in range(travelers - 1):
+    next_seat = i+2
+    if next_seat not in all_seats:
+      all_seats.append(next_seat)
+    else:
+      next_seat = simulate()
+      if next_seat == 100:
+        return 0
+      elif next_seat not in all_seats:
+          all_seats.append(next_seat)
+  return 1
+
+if __name__ == '__main__':
+  result_seats = []
+
+    # use this to run more trials and collect data
+  for i in range(1000):
+    total_seats_result = main()
+    result_seats.append(total_seats_result)
+
+  plt.figure()
+  plt.hist(results, 10)
+  plt.title("Train Tickets Histogram")
+  plt.xlabel("Success for last person to sit in seat 100)")
+  plt.ylabel("Occurances")  
+  plt.savefig('Train Tickets.pdf', )  
 
 ## The Martingale
 
@@ -117,3 +235,50 @@ Tips:
 - As before, use a `simulate` method that plays one complete session, then returns that amount remaining in the gambler's bankroll at the end. Collect all of your results into a list, then use matplotlib's `hist` function to create the plot.
 
 Remember to update the bankroll after each win or loss. Wins become part of the total bankroll and can be used for future bets.
+
+from random import randint
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
+
+def attempt(bet):
+    money = 255
+    win = True
+
+    rand_num = randint(1, 38)
+    if rand_num <= 18:
+        money = money + bet
+    else:
+        money = money - bet
+        win = False
+    return win
+    
+def plot(data):
+    plt.figure()
+    plt.hist(data, 50)
+    plt.title("Martingale Histogram")
+    plt.xlabel("Money in Pocket")
+    plt.ylabel("Count")
+    plt.savefig("Martingale.pdf", bbox_inches='tight')
+
+def main():
+    data = []
+    money = 255
+    
+    for i in range(1000):
+        bet = 1
+        games = 0
+        while money > bet and games < 100:
+            outcome = attempt(bet)
+            if outcome == True:
+                bet = 1
+            else:
+                bet = bet * 2
+            games+=1
+            
+        data.append(money)
+        money = 255
+    plot(data)
+    
+if __name__ == '__main__':
+    main()
