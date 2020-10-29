@@ -239,7 +239,7 @@ Remember to update the bankroll after each win or loss. Wins become part of the 
 from random import randint
 import matplotlib
 matplotlib.use('Agg')
-from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt 
 
 def attempt(bet):
     money = 255
