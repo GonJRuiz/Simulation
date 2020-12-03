@@ -1,0 +1,7 @@
+Sprint 5 Write Up
+
+In this scenario, the fraction of customers that are own a fastpass does not affect the average waiting time of customers. From what I learned, the best way to see how to none of the groups will be affected is by maximizing the amount of fastpass customers while ensuring reasonable waiting times for both groups.
+
+At .95 utilization: Average wait time for regular customers is about 20 minutes. Once the Fastpass value goes above 0.75, the wait time for regular customers increases heavily. The fastpass waiting time will only be affected if there is a very high number of fastpass customers.
+
+At .5 utilization: Having a low load of fastpass customers results in an average wait time of 2 minutes. No group is at high risk of waiting for a long time since the load of fastpasses isn't high enough to increase the wait time for regular customers. The average wait time for fastpass customers stands at half of what the wait time is for regular customers, but there is always room for improvement.
